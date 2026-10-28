@@ -37,7 +37,9 @@ body { background: var(--bg); color: var(--ink); font: 17px/1.65 var(--f-body); 
 .moon::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
   background: radial-gradient(circle at 62% 58%, rgba(120,30,10,.35) 0 9%, transparent 10%), radial-gradient(circle at 30% 66%, rgba(120,30,10,.28) 0 6%, transparent 7%), radial-gradient(circle at 54% 24%, rgba(120,30,10,.22) 0 5%, transparent 6%); }
 .ridge { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 140px; display: block; }
-.fox { position: absolute; bottom: 78px; right: max(8px, calc(50% - 400px)); width: 230px; height: auto; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+.perch { position: absolute; bottom: 0; right: max(8px, calc(50% - 400px)); width: 230px; }
+.fox { position: relative; display: block; width: 100%; height: auto; margin-bottom: -10px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+.ledge { display: block; width: 130%; margin-left: -15%; height: 96px; }
 .sky .wrap { position: relative; padding-block: 36px 250px; }
 .sky nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 64px; flex-wrap: wrap; }
 .mark { display: flex; align-items: center; gap: 10px; font: 800 1.05rem var(--f-display); letter-spacing: .02em; }
@@ -82,7 +84,8 @@ footer { padding-block: 48px 56px; color: var(--muted); font-size: .88rem; }
 a:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
 @media (max-width: 560px) {
   .moon { width: 190px; height: 190px; right: -60px; top: 80px; }
-  .fox { width: 150px; bottom: 84px; right: 8px; }
+  .perch { width: 150px; right: 10px; }
+  .ledge { height: 84px; }
   .sky .wrap { padding-block: 32px 220px; }
   .soon-card > div { max-width: 70%; }
   .soon-card .peek { width: 150px; right: -36px; }
@@ -97,7 +100,7 @@ a:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
   <svg class="ridge" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
     <path fill="#0b0a09" d="M0 92 L60 84 L90 96 L140 70 L170 78 L190 52 L204 52 L206 30 L214 30 L216 52 L232 54 L260 80 L330 74 L380 96 L460 88 L520 100 L600 92 L680 104 L760 96 L820 82 L860 86 L880 60 L892 60 L894 40 L904 40 L906 60 L920 64 L960 90 L1040 84 L1080 64 L1130 58 L1180 40 L1230 38 L1270 48 L1310 46 L1360 70 L1400 78 L1440 74 L1440 140 L0 140 Z"/>
   </svg>
-  <img class="fox" src="img/fox.png" alt="" width="640" height="592">
+  <div class="perch" aria-hidden="true"><img class="fox" src="img/fox.png" alt="" width="640" height="592"><svg class="ledge" viewBox="0 0 260 120" preserveAspectRatio="none"><path fill="#0b0a09" d="M0 120 L14 52 L34 30 L52 14 L70 7 L196 5 L222 12 L242 30 L254 60 L260 120 Z"/></svg></div>
   <div class="wrap">
     <nav aria-label="Site">
       <div class="mark"><img src="img/icon.png" alt="" width="38" height="38">Hollow Fox</div>
