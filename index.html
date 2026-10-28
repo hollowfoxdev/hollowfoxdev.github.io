@@ -2,29 +2,193 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hollow Fox</title>
-<meta name="description" content="Hollow Fox makes games. Coming soon.">
+<meta name="description" content="Hollow Fox makes strange games for curious people. The first one is on its way.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Figtree:wght@400;500;600&display=swap">
 <style>
-  :root { color-scheme: dark; --bg: #0d0b12; --fg: #ece6f2; --muted: #9a90a8; --accent: #e8743b; }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body { margin: 0; background: radial-gradient(ellipse at 50% 30%, #1d1726 0%, var(--bg) 70%); color: var(--fg);
-         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-         display: flex; align-items: center; justify-content: center; padding: 24px 16px; text-align: center; }
-  main { max-width: 520px; }
-  h1 { font-size: clamp(2.2rem, 8vw, 3.4rem); letter-spacing: 0.04em; margin: 0 0 8px; font-weight: 800; }
-  h1 span { color: var(--accent); }
-  p { margin: 0 0 8px; color: var(--muted); }
-  .soon { display: inline-block; margin-top: 20px; padding: 6px 14px; border: 1px solid #3a3146; border-radius: 999px;
-          font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg); }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+/* Layout: the same bones as Blue Hour's page, moved to Hollow Fox's night: a blood moon over a ridge, ink black, ember orange, bone white.
+   One look on purpose (the brand is a night scene), so no light theme. */
+:root {
+  color-scheme: dark;
+  --sky-top: #070a0a; --sky-mid: #13211e; --sky-low: #2b3c36;
+  --bg: #0b0a09; --surface: #15130f; --ink: #f2e9d8; --muted: #a79d8c; --line: #2a2620;
+  --ember: #e2622d; --ember-soft: #e2622d26; --moss: #5e7a6c;
+  --f-display: "Syne", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+body { background: var(--bg); color: var(--ink); font: 17px/1.65 var(--f-body); }
+.wrap { max-width: 680px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* the night */
+.sky { position: relative; overflow: hidden; color: var(--ink);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 60%, var(--sky-low) 100%); }
+.sky canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.moon { position: absolute; right: max(-60px, calc(50% - 520px)); top: 90px; width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, #f4a06a 0%, #e2622d 45%, #b8401c 100%);
+  box-shadow: 0 0 80px 20px rgba(226,98,45,.28), 0 0 220px 60px rgba(226,98,45,.12); opacity: .95; }
+.moon::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 62% 58%, rgba(120,30,10,.35) 0 9%, transparent 10%), radial-gradient(circle at 30% 66%, rgba(120,30,10,.28) 0 6%, transparent 7%), radial-gradient(circle at 54% 24%, rgba(120,30,10,.22) 0 5%, transparent 6%); }
+.ridge { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 140px; display: block; }
+.fox { position: absolute; bottom: 78px; right: max(8px, calc(50% - 400px)); width: 230px; height: auto; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+.sky .wrap { position: relative; padding-block: 36px 250px; }
+.sky nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 64px; flex-wrap: wrap; }
+.mark { display: flex; align-items: center; gap: 10px; font: 800 1.05rem var(--f-display); letter-spacing: .02em; }
+.mark img { width: 38px; height: 38px; border-radius: 10px; }
+.sky nav ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; font-size: .9rem; }
+.sky nav a { color: #d8cfbd; text-decoration: none; }
+.sky nav a:hover, .sky nav a:focus-visible { color: #fff; text-decoration: underline; }
+.eyebrow { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: #c9b89c; margin: 0 0 12px; }
+h1 { font: 800 clamp(2.2rem, 7vw, 3.5rem)/1.02 var(--f-display); margin: 0 0 16px; text-wrap: balance; letter-spacing: -.01em; max-width: 9.5em; position: relative; }
+.lead, .eyebrow { position: relative; }
+h1 em { font-style: normal; color: var(--ember); }
+.lead { font-size: 1.12rem; color: #ddd3c1; max-width: 26em; margin: 0; }
+
+main section { padding-block: 44px 8px; }
+h2 { font: 800 1.6rem/1.2 var(--f-display); margin: 0 0 14px; text-wrap: balance; }
+h3 { font: 600 1.05rem/1.3 var(--f-body); margin: 0; }
+p { margin: 0 0 14px; }
+.muted { color: var(--muted); }
+a { color: var(--ember); }
+
+.promises { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.promises li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.promises b { display: block; font: 600 1.02rem var(--f-body); margin-bottom: 2px; }
+.promises span { color: var(--muted); font-size: .96rem; }
+
+.soon-card { position: relative; overflow: hidden; background: var(--surface); border: 1px dashed #3a342b; border-radius: 16px; padding: 22px 18px 22px; min-height: 150px; display: grid; align-content: center; }
+.soon-card > div { position: relative; max-width: 62%; min-width: 0; }
+.soon-card .peek { position: absolute; right: -28px; bottom: -40px; width: 190px; opacity: .95; transform: rotate(-8deg); }
+.pill { display: inline-block; margin-top: 10px; padding: 4px 12px; border: 1px solid #4a4236; border-radius: 999px; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+
+.tip { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; display: grid; gap: 14px; }
+.kofi-panel { border: 1px dashed var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 12px; }
+.kofi-head { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.cup { width: 28px; height: 28px; border-radius: 50%; background: var(--ember); display: grid; place-items: center; }
+.amounts { display: flex; gap: 8px; flex-wrap: wrap; }
+.amounts button { font: 600 1rem var(--f-body); border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 10px; padding: 8px 14px; min-width: 64px; cursor: default; }
+.amounts button[aria-pressed="true"] { border-color: var(--ember); box-shadow: 0 0 0 2px var(--ember) inset; }
+.kofi-go { font: 600 1rem var(--f-body); background: var(--ember); color: #1a0b04; border: 0; border-radius: 10px; padding: 11px 16px; cursor: default; }
+.linkrow span { color: var(--muted); font-weight: 600; }
+
+footer { padding-block: 48px 56px; color: var(--muted); font-size: .88rem; }
+a:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+@media (max-width: 560px) {
+  .moon { width: 190px; height: 190px; right: -60px; top: 80px; }
+  .fox { width: 150px; bottom: 84px; right: 8px; }
+  .sky .wrap { padding-block: 32px 220px; }
+  .soon-card > div { max-width: 70%; }
+  .soon-card .peek { width: 150px; right: -36px; }
+}
 </style>
 </head>
 <body>
-<main>
-  <h1>Hollow <span>Fox</span></h1>
-  <p>Games, made by one person after hours.</p>
-  <span class="soon">Coming soon</span>
+
+<header class="sky">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="moon" aria-hidden="true"></div>
+  <svg class="ridge" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#0b0a09" d="M0 92 L60 84 L90 96 L140 70 L170 78 L190 52 L204 52 L206 30 L214 30 L216 52 L232 54 L260 80 L330 74 L380 96 L460 88 L520 100 L600 92 L680 104 L760 96 L820 82 L860 86 L880 60 L892 60 L894 40 L904 40 L906 60 L920 64 L960 90 L1040 84 L1080 64 L1130 58 L1180 40 L1230 38 L1270 48 L1310 46 L1360 70 L1400 78 L1440 74 L1440 140 L0 140 Z"/>
+  </svg>
+  <img class="fox" src="img/fox.png" alt="" width="640" height="592">
+  <div class="wrap">
+    <nav aria-label="Site">
+      <div class="mark"><img src="img/icon.png" alt="" width="38" height="38">Hollow Fox</div>
+      <ul><li><a href="#about">About</a></li><li><a href="#games">Games</a></li><li><a href="#support">Support</a></li></ul>
+    </nav>
+    <p class="eyebrow">Play weirder worlds</p>
+    <h1>Strange games for <em>curious</em> people.</h1>
+    <p class="lead">Hollow Fox is a small game studio of exactly one person. The first game is on its way.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="about">
+    <h2>This is Hollow Fox.</h2>
+    <p>Hollow Fox is where I make games. It isn't a big studio, and there's no publisher behind it. It's one person who likes games that are a little odd and a lot of fun.</p>
+    <p>I like games that make you lean in. A world that's slightly off, a rule you didn't expect, a reason to try one more round. That's what I'm making here.</p>
+  </section>
+
+  <section>
+    <h2>Why a hollow fox</h2>
+    <p>Foxes are curious, quick and a little mischievous, and they come out at night. The hollow eyes are the curious part: always looking, never quite sure what's around the next corner. That's the kind of player I make these games for.</p>
+  </section>
+
+  <section>
+    <h2>What I promise</h2>
+    <ul class="promises">
+      <li><b>Weird on purpose.</b><span>Every game starts with an idea that's a little strange, then gets polished until it plays well.</span></li>
+      <li><b>Fair to play.</b><span>No tricks to keep you hooked and no paying to win.</span></li>
+      <li><b>Your data stays yours.</b><span>The games collect only what they need to work, and nothing is sold.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Who's behind it</h2>
+    <p>Just me, making games on my own laptop at home, usually after dark, with two cats supervising. I bounce ideas off my spouse and friends, who now and then get talked into playtesting.</p>
+  </section>
+
+  <section id="games">
+    <h2>The games</h2>
+    <div class="soon-card">
+      <div>
+        <h3>The first game</h3>
+        <p class="muted" style="margin:4px 0 0">It's in the works. It'll show up here first, along with screenshots and where to get it.</p>
+        <span class="pill">Coming soon</span>
+      </div>
+      <img class="peek" src="img/peek.png" alt="" width="420" height="420">
+    </div>
+  </section>
+
+  <section id="support">
+    <h2>Buy me a coffee</h2>
+    <div class="tip">
+      <p style="margin:0">If you enjoy the games and want to say thanks, tips go toward snacks, coffee and the occasional new game to study. It's never expected.</p>
+      <div class="kofi-panel" role="group" aria-label="Tip on Ko-fi">
+        <div class="kofi-head"><span class="cup" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a0b04" stroke-width="2.2" stroke-linecap="round"><path d="M4 8h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/></svg></span>Support Hollow Fox on Ko-fi</div>
+        <div class="amounts">
+          <button type="button" disabled aria-pressed="false">$3</button>
+          <button type="button" disabled aria-pressed="true">$5</button>
+          <button type="button" disabled aria-pressed="false">$10</button>
+        </div>
+        <button type="button" class="kofi-go" disabled>Tip $5</button>
+      </div>
+      <div class="linkrow"><span>Or open my Ko-fi page ›</span></div>
+    </div>
+  </section>
+
+  <section id="fine">
+    <h2>The fine print</h2>
+    <p class="muted">Each game's privacy policy and terms show up here when it's released. Questions: contact@hollowfox.dev</p>
+  </section>
 </main>
+
+<footer><div class="wrap">Hollow Fox · one person, two cats, strange games · <span id="yr">2026</span></div></footer>
+
+<script>
+(function () {
+  // stars in the upper sky, drawn once
+  var c = document.getElementById('stars'), x = c.getContext('2d');
+  function draw() {
+    var r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    c.width = r.width * d; c.height = r.height * d; x.scale(d, d);
+    var n = Math.round(r.width / 12), seed = 11;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    for (var i = 0; i < n; i++) {
+      var sx = rnd() * r.width, sy = rnd() * r.height * 0.6, a = 0.2 + rnd() * 0.6;
+      x.fillStyle = 'rgba(242,233,216,' + a + ')'; x.beginPath(); x.arc(sx, sy, rnd() < .1 ? 1.4 : 0.8, 0, 6.3); x.fill();
+    }
+  }
+  draw(); window.addEventListener('resize', function () { x.setTransform(1, 0, 0, 1, 0, 0); draw(); });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
 </body>
 </html>
