@@ -13,7 +13,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; }
-img { max-width: 100%; }
+img { max-width: 100%; height: auto; }
 /* Layout: the same bones as Blue Hour's page, moved to Hollow Fox's night: a blood moon over a ridge, ink black, ember orange, bone white.
    One look on purpose (the brand is a night scene), so no light theme. */
 :root {
@@ -67,7 +67,7 @@ a { color: var(--ember); }
 
 .soon-card { position: relative; overflow: hidden; background: var(--surface); border: 1px dashed #3a342b; border-radius: 16px; padding: 22px 18px 22px; min-height: 150px; display: grid; align-content: center; }
 .soon-card > div { position: relative; max-width: 62%; min-width: 0; }
-.soon-card .peek { position: absolute; right: -28px; bottom: -40px; width: 190px; opacity: .95; transform: rotate(-8deg); }
+.soon-card .peek { position: absolute; right: -28px; bottom: -40px; width: 190px; height: auto; opacity: .95; transform: rotate(-8deg); }
 .pill { display: inline-block; margin-top: 10px; padding: 4px 12px; border: 1px solid #4a4236; border-radius: 999px; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
 
 .tip { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; display: grid; gap: 14px; }
